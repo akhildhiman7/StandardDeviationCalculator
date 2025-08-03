@@ -5,13 +5,13 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-public class StandardDeviationGUI extends JFrame {
+public class StandardDeviationGui extends JFrame {
 
     private JTextField inputField;
     private JTextArea resultArea;
     private JLabel formulaLabel;
 
-    public StandardDeviationGUI() {
+    public StandardDeviationGui() {
         setTitle("Standard Deviation Calculator");
         setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -66,7 +66,7 @@ public class StandardDeviationGUI extends JFrame {
     private class FileLoadListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showOpenDialog(StandardDeviationGUI.this);
+            int result = fileChooser.showOpenDialog(StandardDeviationGui.this);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 try (Scanner scanner = new Scanner(file)) {
@@ -120,7 +120,7 @@ public class StandardDeviationGUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            StandardDeviationGUI app = new StandardDeviationGUI();
+            StandardDeviationGui app = new StandardDeviationGui();
             app.setVisible(true);
         });
     }
