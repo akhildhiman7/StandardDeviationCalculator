@@ -60,13 +60,22 @@ class StandardDeviationCalculator extends JFrame {
     formulaLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
     inputField = new JTextField();
+    inputField.getAccessibleContext().setAccessibleName("Input Field");
+    inputField.getAccessibleContext().setAccessibleDescription(
+        "Enter numbers separated by commas, e.g. 12,13,14");
+
+    JButton fileButton = new JButton("Load from File");
+    fileButton.setToolTipText("Load numbers from a text file.");
+    fileButton.getAccessibleContext().setAccessibleName("Load File Button");
+    fileButton.getAccessibleContext().setAccessibleDescription(
+        "Load numbers from a text file");
 
     JButton calculateButton = new JButton("Calculate");
-    JButton fileButton = new JButton("Load from File");
-
     calculateButton.setToolTipText("Calculate the mean and standard"
         + " deviation of the input numbers.");
-    fileButton.setToolTipText("Load numbers from a text file.");
+    calculateButton.getAccessibleContext().setAccessibleName("Calculate Button");
+    calculateButton.getAccessibleContext().setAccessibleDescription(
+        "Calculate the mean and standard deviation");
 
     calculateButton.addActionListener(new CalculateListener());
     fileButton.addActionListener(new FileLoadListener());
@@ -76,11 +85,10 @@ class StandardDeviationCalculator extends JFrame {
     resultArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
     resultArea.setBorder(BorderFactory.createTitledBorder("Result"));
 
-    JLabel promptLabel = new JLabel("Enter numbers separated by commas:");
-
     inputField.setToolTipText("Enter numbers separated by commas, e.g. 12,13,14");
 
 
+    JLabel promptLabel = new JLabel("Enter numbers separated by commas:");
     /*
      * The main input panel groups the input field and buttons together for proximity and grouping,
      * following UID principles (see UID Principles PDF, Section 3.4).
