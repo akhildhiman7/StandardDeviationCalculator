@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
  * StandardDeviationGui is a graphical user interface for calculating
  * the standard deviation of a set of numbers provided by the user.
  */
-public class StandardDeviationGui extends JFrame {
+class StandardDeviationCalculator extends JFrame {
 
   private JTextField inputField;
   private JTextArea resultArea;
@@ -31,7 +31,7 @@ public class StandardDeviationGui extends JFrame {
   /**
    * Constructor to set up the GUI components and layout.
    */
-  public StandardDeviationGui() {
+  public StandardDeviationCalculator() {
     setTitle("Standard Deviation Calculator");
     setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -86,7 +86,7 @@ public class StandardDeviationGui extends JFrame {
   private class FileLoadListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       JFileChooser fileChooser = new JFileChooser();
-      int result = fileChooser.showOpenDialog(StandardDeviationGui.this);
+      int result = fileChooser.showOpenDialog(StandardDeviationCalculator.this);
       if (result == JFileChooser.APPROVE_OPTION) {
         File file = fileChooser.getSelectedFile();
         try (Scanner scanner = new Scanner(file)) {
@@ -143,7 +143,7 @@ public class StandardDeviationGui extends JFrame {
    */
   public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
-      StandardDeviationGui app = new StandardDeviationGui();
+      StandardDeviationCalculator app = new StandardDeviationCalculator();
       app.setVisible(true);
     });
   }
