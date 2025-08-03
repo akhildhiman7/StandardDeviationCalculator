@@ -5,6 +5,10 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * StandardDeviationGui is a graphical user interface for calculating
+ * the standard deviation of a set of numbers provided by the user.
+ */
 public class StandardDeviationGui extends JFrame {
 
     private JTextField inputField;
