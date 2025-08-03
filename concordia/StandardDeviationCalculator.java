@@ -1,3 +1,5 @@
+package concordia;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -78,6 +80,40 @@ class StandardDeviationCalculator extends JFrame {
   }
 
   private class CalculateListener implements ActionListener {
+    private void processInput(String input) {
+      try {
+        String[] tokens = input.split(",");
+        if (tokens.length == 0 || input.trim().isEmpty()) {
+          throw new IllegalArgumentException("No input data provided.");
+        }
+  
+        double[] numbers = new double[tokens.length];
+        double sum = 0;
+  
+        for (int i = 0; i < tokens.length; i++) {
+          numbers[i] = Double.parseDouble(tokens[i].trim());
+          sum += numbers[i];
+        }
+  
+        double mean = sum / numbers.length;
+        double squaredDiffSum = 0;
+  
+        for (double num : numbers) {
+          squaredDiffSum += (num - mean) * (num - mean);
+        }
+  
+        double stdDev = Math.sqrt(squaredDiffSum / numbers.length);
+        resultArea.setText("Mean: " + String.format("%.4f", mean)
+                + "\nStandard Deviation (σ): " + String.format("%.4f", stdDev));
+      } catch (NumberFormatException ex) {
+        resultArea.setText("Error: Invalid number format. Please check your input.");
+      } catch (IllegalArgumentException ex) {
+        resultArea.setText("Error: " + ex.getMessage());
+      } catch (Exception ex) {
+        resultArea.setText("Unexpected error: " + ex.getMessage());
+      }
+    }
+
     public void actionPerformed(ActionEvent e) {
       processInput(inputField.getText());
     }
@@ -101,40 +137,6 @@ class StandardDeviationCalculator extends JFrame {
           resultArea.setText("Error reading file: " + ex.getMessage());
         }
       }
-    }
-  }
-
-  private void processInput(String input) {
-    try {
-      String[] tokens = input.split(",");
-      if (tokens.length == 0 || input.trim().isEmpty()) {
-        throw new IllegalArgumentException("No input data provided.");
-      }
-
-      double[] numbers = new double[tokens.length];
-      double sum = 0;
-
-      for (int i = 0; i < tokens.length; i++) {
-        numbers[i] = Double.parseDouble(tokens[i].trim());
-        sum += numbers[i];
-      }
-
-      double mean = sum / numbers.length;
-      double squaredDiffSum = 0;
-
-      for (double num : numbers) {
-        squaredDiffSum += (num - mean) * (num - mean);
-      }
-
-      double stdDev = Math.sqrt(squaredDiffSum / numbers.length);
-      resultArea.setText("Mean: " + String.format("%.4f", mean)
-              + "\nStandard Deviation (σ): " + String.format("%.4f", stdDev));
-    } catch (NumberFormatException ex) {
-      resultArea.setText("Error: Invalid number format. Please check your input.");
-    } catch (IllegalArgumentException ex) {
-      resultArea.setText("Error: " + ex.getMessage());
-    } catch (Exception ex) {
-      resultArea.setText("Unexpected error: " + ex.getMessage());
     }
   }
 
