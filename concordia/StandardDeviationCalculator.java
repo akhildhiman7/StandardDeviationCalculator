@@ -41,13 +41,13 @@ class StandardDeviationCalculator extends JFrame {
   private JTextField inputField;
   private JTextArea resultArea;
   private JLabel formulaLabel;
-  private static final String VERSION = "1.0.0";
+  private static final String VERSION = "1.0.1";
 
   /**
    * Constructor to set up the GUI components and layout.
    */
   public StandardDeviationCalculator() {
-    setTitle("Standard Deviation Calculator");
+    setTitle("Standard Deviation Calculator v" + VERSION);
     setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLayout(new BorderLayout(10, 10));
