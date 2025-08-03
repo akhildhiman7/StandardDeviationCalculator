@@ -41,7 +41,7 @@ class StandardDeviationCalculator extends JFrame {
   private JTextField inputField;
   private JTextArea resultArea;
   private JLabel formulaLabel;
-  private static final String VERSION = "1.0.1";
+  private static final String VERSION = "1.1.0";
 
   /**
    * Constructor to set up the GUI components and layout.
@@ -64,6 +64,10 @@ class StandardDeviationCalculator extends JFrame {
     JButton calculateButton = new JButton("Calculate");
     JButton fileButton = new JButton("Load from File");
 
+    calculateButton.setToolTipText("Calculate the mean and standard"
+        + " deviation of the input numbers.");
+    fileButton.setToolTipText("Load numbers from a text file.");
+
     calculateButton.addActionListener(new CalculateListener());
     fileButton.addActionListener(new FileLoadListener());
 
@@ -73,6 +77,14 @@ class StandardDeviationCalculator extends JFrame {
     resultArea.setBorder(BorderFactory.createTitledBorder("Result"));
 
     JLabel promptLabel = new JLabel("Enter numbers separated by commas:");
+
+    inputField.setToolTipText("Enter numbers separated by commas, e.g. 12,13,14");
+
+
+    /*
+     * The main input panel groups the input field and buttons together for proximity and grouping,
+     * following UID principles (see UID Principles PDF, Section 3.4).
+     */
     JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
     inputPanel.add(promptLabel, BorderLayout.NORTH);
     inputPanel.add(inputField, BorderLayout.CENTER);
