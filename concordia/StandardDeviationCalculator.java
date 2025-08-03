@@ -1,3 +1,15 @@
+/**
+ * StandardDeviationCalculator.java
+ * Version: 1.0.0
+ *
+ * <p>Implements a standard deviation calculator GUI.
+ *
+ * <p>Version History:
+ *   1.0.0 - Initial release (basic input, file support, formula display, error handling)
+ *
+ * <p>This project uses Semantic Versioning: https://semver.org/
+ */
+
 package concordia;
 
 import java.awt.BorderLayout;
@@ -29,6 +41,7 @@ class StandardDeviationCalculator extends JFrame {
   private JTextField inputField;
   private JTextArea resultArea;
   private JLabel formulaLabel;
+  private static final String VERSION = "1.0.0";
 
   /**
    * Constructor to set up the GUI components and layout.
@@ -76,7 +89,16 @@ class StandardDeviationCalculator extends JFrame {
     add(centerPanel, BorderLayout.CENTER);
     JScrollPane scrollPane = new JScrollPane(resultArea);
     scrollPane.setPreferredSize(new Dimension(580, 120));
-    add(scrollPane, BorderLayout.SOUTH);
+    
+    JPanel bottomPanel = new JPanel(new BorderLayout());
+    bottomPanel.add(scrollPane, BorderLayout.CENTER);
+    
+    JLabel versionLabel = new JLabel("Version: " + VERSION);
+    versionLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
+    versionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    bottomPanel.add(versionLabel, BorderLayout.SOUTH);
+    
+    add(bottomPanel, BorderLayout.SOUTH);
   }
 
   private class CalculateListener implements ActionListener {
