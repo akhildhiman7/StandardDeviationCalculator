@@ -41,7 +41,7 @@ class StandardDeviationCalculator extends JFrame {
   private JTextField inputField;
   private JTextArea resultArea;
   private JLabel formulaLabel;
-  private static final String VERSION = "1.1.0";
+  private static final String VERSION = "1.1.3";
 
   /**
    * Constructor to set up the GUI components and layout.
