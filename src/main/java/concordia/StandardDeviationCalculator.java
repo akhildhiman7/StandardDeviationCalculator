@@ -1,15 +1,3 @@
-/**
- * StandardDeviationCalculator.java
- * Version: 1.0.0
- *
- * <p>Implements a standard deviation calculator GUI.
- *
- * <p>Version History:
- *   1.0.0 - Initial release (basic input, file support, formula display, error handling)
- *
- * <p>This project uses Semantic Versioning: https://semver.org/
- */
-
 package concordia;
 
 import java.awt.BorderLayout;
@@ -33,10 +21,13 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 /**
- * StandardDeviationGui is a graphical user interface for calculating
- * the standard deviation of a set of numbers provided by the user.
+ * StandardDeviationCalculator.java
+ * Version: 1.1.3
+ *
+ * <p>Implements a standard deviation calculator GUI.
+ * This project uses Semantic Versioning: https://semver.org/
  */
-class StandardDeviationCalculator extends JFrame {
+public class StandardDeviationCalculator extends JFrame {
 
   private JTextField inputField;
   private JTextArea resultArea;
@@ -44,7 +35,8 @@ class StandardDeviationCalculator extends JFrame {
   private static final String VERSION = "1.1.3";
 
   /**
-   * Constructor to set up the GUI components and layout.
+   * StandardDeviationGui is a graphical user interface for calculating
+   * the standard deviation of a set of numbers provided by the user.
    */
   public StandardDeviationCalculator() {
     setTitle("Standard Deviation Calculator v" + VERSION);
@@ -53,9 +45,9 @@ class StandardDeviationCalculator extends JFrame {
     setLayout(new BorderLayout(10, 10));
 
     formulaLabel = new JLabel("<html><body style='text-align:center;'>"
-            + "<h3>Standard Deviation Formula</h3>"
-            + "<p style='font-size:14px;'>σ = √(1/N × Σ(xᵢ - μ)²)</p>"
-            + "</body></html>", SwingConstants.CENTER);
+      + "<h3>Standard Deviation Formula</h3>"
+      + "<p style='font-size:14px;'>σ = √(1/N × Σ(xᵢ - μ)²)</p>"
+      + "</body></html>", SwingConstants.CENTER);
     formulaLabel.setFont(new Font("Serif", Font.PLAIN, 16));
     formulaLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -71,8 +63,8 @@ class StandardDeviationCalculator extends JFrame {
         "Load numbers from a text file");
 
     JButton calculateButton = new JButton("Calculate");
-    calculateButton.setToolTipText("Calculate the mean and standard"
-        + " deviation of the input numbers.");
+    calculateButton.setToolTipText("Calculate the mean and"
+        + " standard deviation of the input numbers.");
     calculateButton.getAccessibleContext().setAccessibleName("Calculate Button");
     calculateButton.getAccessibleContext().setAccessibleDescription(
         "Calculate the mean and standard deviation");
@@ -85,14 +77,7 @@ class StandardDeviationCalculator extends JFrame {
     resultArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
     resultArea.setBorder(BorderFactory.createTitledBorder("Result"));
 
-    inputField.setToolTipText("Enter numbers separated by commas, e.g. 12,13,14");
-
-
     JLabel promptLabel = new JLabel("Enter numbers separated by commas:");
-    /*
-     * The main input panel groups the input field and buttons together for proximity and grouping,
-     * following UID principles (see UID Principles PDF, Section 3.4).
-     */
     JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
     inputPanel.add(promptLabel, BorderLayout.NORTH);
     inputPanel.add(inputField, BorderLayout.CENTER);
@@ -109,44 +94,26 @@ class StandardDeviationCalculator extends JFrame {
     add(centerPanel, BorderLayout.CENTER);
     JScrollPane scrollPane = new JScrollPane(resultArea);
     scrollPane.setPreferredSize(new Dimension(580, 120));
-    
+
     JPanel bottomPanel = new JPanel(new BorderLayout());
     bottomPanel.add(scrollPane, BorderLayout.CENTER);
-    
+
     JLabel versionLabel = new JLabel("Version: " + VERSION);
     versionLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
     versionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
     bottomPanel.add(versionLabel, BorderLayout.SOUTH);
-    
+
     add(bottomPanel, BorderLayout.SOUTH);
   }
 
   private class CalculateListener implements ActionListener {
-    private void processInput(String input) {
+    public void actionPerformed(ActionEvent e) {
       try {
-        String[] tokens = input.split(",");
-        if (tokens.length == 0 || input.trim().isEmpty()) {
-          throw new IllegalArgumentException("No input data provided.");
-        }
-  
-        double[] numbers = new double[tokens.length];
-        double sum = 0;
-  
-        for (int i = 0; i < tokens.length; i++) {
-          numbers[i] = Double.parseDouble(tokens[i].trim());
-          sum += numbers[i];
-        }
-  
-        double mean = sum / numbers.length;
-        double squaredDiffSum = 0;
-  
-        for (double num : numbers) {
-          squaredDiffSum += (num - mean) * (num - mean);
-        }
-  
-        double stdDev = Math.sqrt(squaredDiffSum / numbers.length);
+        double[] numbers = StatisticsUtil.parseNumbers(inputField.getText());
+        double mean = StatisticsUtil.mean(numbers);
+        double stdDev = StatisticsUtil.stdDev(numbers);
         resultArea.setText("Mean: " + String.format("%.4f", mean)
-                + "\nStandard Deviation (σ): " + String.format("%.4f", stdDev));
+            + "\nStandard Deviation (σ): " + String.format("%.4f", stdDev));
       } catch (NumberFormatException ex) {
         resultArea.setText("Error: Invalid number format. Please check your input.");
       } catch (IllegalArgumentException ex) {
@@ -154,10 +121,6 @@ class StandardDeviationCalculator extends JFrame {
       } catch (Exception ex) {
         resultArea.setText("Unexpected error: " + ex.getMessage());
       }
-    }
-
-    public void actionPerformed(ActionEvent e) {
-      processInput(inputField.getText());
     }
   }
 
@@ -181,7 +144,7 @@ class StandardDeviationCalculator extends JFrame {
       }
     }
   }
-
+  
   /**
    * Main method to run the GUI application.
    */
